@@ -92,14 +92,20 @@ while option != "0":
                 option3_clt = input("|= Escolha uma opção: ")
                 if option3_clt == "1":
                    nome_clt = input("|= Digite o nome do cliente: ")
+                   input("Cliente editado com sucesso!! <Enter>: ")
                 elif option3_clt == "2":
                    phone_clt = input("|= Digite o telefone do cliente: ")
+                   input("Cliente editado com sucesso!! <Enter>: ")
                 elif option3_clt == "3":
                    cpf_clt = input("|= Digite o CPF do cliente: ")
+                   input("Cliente editado com sucesso!! <Enter>: ")
                 elif option3_clt == "4":
                    city_clt = input("|= Digite a cidade do cliente: ")
-                else:
+                   input("Cliente editado com sucesso!!")
+                elif option3_clt == "0":
                    print()
+                else:
+                   input("Opção inválida!! <Enter>: ")
         elif option_clt == "4":
             nome_clt = input("|= Digite o nome do cliente: ")
             print("|==========================================|")
