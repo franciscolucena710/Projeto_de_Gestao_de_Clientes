@@ -1,5 +1,7 @@
 import os
 from memoryt import save_clientes
+from tools import valida_cpf
+from tools import valida_phone
 def limpar_tela():
     if os.name == 'nt':
         os.system('cls')
@@ -10,20 +12,36 @@ def cadastrar(clientes):
     print("|=")
     phone_clt = input("|= Digite o telefone do cliente: ")
     print("|=")
-    cpf_clt = input("|= Digite o CPF do cliente: ")
-    if cpf_clt in clientes or cpf_clt == "":
-        print("|==========================================|")
-        print("|==                                      ==|")
-        print("|==       CPF inválido ou em uso!        ==|")
-        print("|==                                      ==|")
-        print("|==========================================|")
+    phone = phone_clt.replace("(", "").replace(")", "").replace("-", "").replace(" ", "")
+    if valida_phone(phone,clientes):
+        cpf_clt = input("|= Digite o CPF do cliente: ")
+        cpf = cpf_clt.replace(".", "").replace("-", "")
+        if cpf in clientes:
+            print("|==========================================|")
+            print("|==                                      ==|")
+            print("|==       CPF inválido ou em uso!        ==|")
+            print("|==                                      ==|")
+            print("|==========================================|")
+        else:
+            if not valida_cpf(cpf):
+                print("|==========================================|")
+                print("|==                                      ==|")
+                print("|==       CPF inválido ou em uso!        ==|")
+                print("|==                                      ==|")
+                print("|==========================================|")
+            else:
+                print("|=")
+                city_clt = input("|= Digite a cidade do cliente: ")
+                clientes[cpf] = [nome_clt, phone, city_clt]
+                print("|==========================================|")
+                print("|==                                      ==|")
+                print("|==   Cliente cadastrado com sucesso!!   ==|")
+                print("|==                                      ==|")
+                print("|==========================================|")
     else:
-        print("|=")
-        city_clt = input("|= Digite a cidade do cliente: ")
-        clientes[cpf_clt] = [nome_clt, phone_clt, city_clt]
         print("|==========================================|")
         print("|==                                      ==|")
-        print("|==   Cliente cadastrado com sucesso!!   ==|")
+        print("|==     Telefone inválido ou em uso!     ==|")
         print("|==                                      ==|")
         print("|==========================================|")
     input("|= Voltar para o Módulo de clientes <Enter>: ")
@@ -88,41 +106,54 @@ def editar(clientes):
                     save_clientes(clientes)
                 elif option3_clt == "2":
                     phone_clt = input("|== Digite o novo telefone do cliente: ")
-                    clientes[cpf_clt][1] = phone_clt
-                    save_clientes(clientes)
-                elif option3_clt == "3":
-                    cpf_antigo = cpf_clt
-                    cpf_clt = input("|= Digite o novo CPF do cliente: ")
-                    if cpf_clt in clientes:
+                    phone = phone_clt.replace("(", "").replace(")", "").replace("-", "").replace(" ", "")
+                    if valida_phone(phone,clientes):
+                        clientes[cpf_clt][1] = phone
+                        save_clientes(clientes)
+                    else:
                         print("|==========================================|")
                         print("|==                                      ==|")
-                        print("|==       CPF inválido ou em uso!        ==|")
+                        print("|==     Telefone inválido ou em uso!     ==|")
                         print("|==                                      ==|")
                         print("|==========================================|")
                         continuar = input("|== Continuar editando [Enter]: ")
                         if continuar.upper() == "N":
                             option3_clt = "0"
-                        cpf_clt = cpf_antigo
-                    elif cpf_clt == "":
-                        print()
+                elif option3_clt == "3":
+                    cpf_antigo = cpf_clt
+                    cpf_antigo = cpf_antigo.replace(".", "").replace("-", "")
+                    cpf_clt = input("|= Digite o novo CPF do cliente: ")
+                    cpf_clt = cpf_clt.replace(".", "").replace("-", "")
+                    if valida_cpf(cpf_clt):
+                        if cpf_clt in clientes:
+                            print("|==========================================|")
+                            print("|==                                      ==|")
+                            print("|==       CPF inválido ou em uso!        ==|")
+                            print("|==                                      ==|")
+                            print("|==========================================|")
+                            continuar = input("|== Continuar editando [Enter]: ")
+                            if continuar.upper() == "N":
+                                option3_clt = "0"
+                            cpf_clt = cpf_antigo
+                        elif cpf_clt == "":
+                            print()
+                        else:
+                            clientes[cpf_clt] = [clientes[cpf_antigo][0], clientes[cpf_antigo][1], clientes[cpf_antigo][2]]
+                            del clientes[cpf_antigo]
+                            save_clientes(clientes)
                     else:
-                        clientes[cpf_clt] = [clientes[cpf_antigo][0], clientes[cpf_antigo][1], clientes[cpf_antigo][2]]
-                        del clientes[cpf_antigo]
-                        save_clientes(clientes)
                         print("|==========================================|")
                         print("|==                                      ==|")
-                        print("|==     Cliente editado com sucesso!!    ==|")
+                        print("|==       CPF inválido ou em uso!        ==|")
                         print("|==                                      ==|")
                         print("|==========================================|")
+                        cpf_clt = cpf_antigo
+                        input("|== Continuar editando [Enter]: ")
                 elif option3_clt == "4":
                     city_clt = input("|== Digite a nova cidade do cliente: ")
                     clientes[cpf_clt][2] = city_clt
                     save_clientes(clientes)
-                    print("|==========================================|")
-                    print("|==                                      ==|")
-                    print("|==     Cliente editado com sucesso!!    ==|")
-                    print("|==                                      ==|")
-                    print("|==========================================|")
+
                 elif option3_clt == "0" or option3_clt == "":
                     print()
                 else:
