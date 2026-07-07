@@ -2,6 +2,7 @@ import os
 import mod1
 import mod2
 import mod3
+import mod5
 from mod1 import limpar_tela
 from memoryt import load
 import mod1
@@ -20,6 +21,8 @@ while option != "0":
   print("|==        3-Módulo Pagamentos           ==|")
   print("|==                                      ==|")
   print("|==        4-Módulo de informações       ==|")
+  print("|==                                      ==|")
+  print("|==        5-Módulo de relatórios        ==|")
   print("|==                                      ==|")
   print("|==        0-Sair                        ==|")
   print("|==                                      ==|")
@@ -157,6 +160,39 @@ while option != "0":
     print("|==========================================|")
     print("|==========================================|")
     option_inv = input("|= Voltar para o Módulo principal <Enter>: ")
+  elif option == "5":
+      option_rlt = ''
+      while option_rlt != "0":
+         limpar_tela()
+         print("|==========================================|")
+         print("|=========== Módulo de Relatórios =========|")
+         print("|==========================================|")
+         print("|==                                      ==|")
+         print("|==     1-Relatório Geral                ==|")
+         print("|==                                      ==|")
+         print("|==     2-Relatório por cidade           ==|")
+         print("|==                                      ==|")
+         print("|==     3-Relatório de vencimentos       ==|")
+         print("|==                                      ==|")
+         print("|==     4-Relatório específico           ==|")
+         print("|==                                      ==|")
+         print("|==     0-Sair                           ==|")
+         print("|==                                      ==|")
+         print("|==========================================|")
+         print("|==========================================|")
+         option_rlt = input("|= Escolha uma opção: ")
+         if option_rlt == "1":
+            limpar_tela()
+            mod5.relatorio_geral(clientes,contas,pagamentos)
+         elif option_rlt == "2":
+            limpar_tela()
+            mod5.relatorio_cidade(clientes,contas,pagamentos)
+         elif option_rlt == "3":
+            limpar_tela()
+            mod5.relatorio_vencimentos(clientes,contas,pagamentos)
+         elif option_rlt == "4":
+            limpar_tela()
+            mod5.relatorio_especifico(clientes)
   elif not option:
      print()
   elif option == "0":
