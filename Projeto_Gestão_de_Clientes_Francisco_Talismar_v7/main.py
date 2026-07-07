@@ -154,7 +154,7 @@ while option != "0":
     print("|==     Autor do projeto:                ==|")
     print("|==     ↳ Francisco Talismar             ==|")
     print("|==                                      ==|")
-    print("|==     Licença Pública Geral GNU        ==|")
+    print("|==     Licença Pública Geral GNU  v3    ==|")
     print("|==     ↳ www.gnu.org/licenses/gpl.html  ==|")
     print("|==                                      ==|")
     print("|==========================================|")
