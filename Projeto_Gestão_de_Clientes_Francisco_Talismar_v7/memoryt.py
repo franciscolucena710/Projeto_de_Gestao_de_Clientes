@@ -45,9 +45,9 @@ def load():
             valor = linhas2[i+2]
             vencimento = linhas2[i+3]
             contas[id_cliente] = [desc, valor, vencimento]
-        arq = open('pagamentos.txt', 'r', encoding='utf-8')
-        conteudo_do_arquivo = arq.read()
-        arq.close()
+        arq3 = open('pagamentos.txt', 'r', encoding='utf-8')
+        conteudo_do_arquivo = arq3.read()
+        arq3.close()
         pagamentos = ast.literal_eval(conteudo_do_arquivo)
     except:
         clientes = { "1": ["João Silva", "123456789", "São Paulo"], 

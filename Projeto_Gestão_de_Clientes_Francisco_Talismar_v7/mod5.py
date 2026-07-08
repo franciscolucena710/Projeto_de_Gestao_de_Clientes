@@ -1,5 +1,4 @@
 from datetime import datetime
-from mod1 import limpar_tela
 def relatorio_geral(clientes,contas,pagamentos):
     for cliente in clientes:
         print("|==========================================|")
@@ -56,8 +55,10 @@ def relatorio_vencimentos(clientes,contas,pagamentos):
         data_conta = contas[conta][2]
         venc_conta = datetime.strptime(data_conta, "%d-%m-%Y").date()
         dia_atual = datetime.now().date()
+        soma = 0
         if venc_conta < dia_atual:
             dif = (dia_atual - venc_conta).days
+            soma += 1
             print("|==========================================|")
             print("|== cliente: ", clientes[conta][0])
             print("|== cpf: ", conta)
@@ -77,26 +78,36 @@ def relatorio_vencimentos(clientes,contas,pagamentos):
                 print("|== Possui pagamentos: Não")
             print("|== Dias atrasados: ", dif,"!!")
     print("|==========================================|")
+    if soma == 0:
+        print("|==      Nenhum cliente encontrado       ==|")
+        print("|==        com contas vencidas!!         ==|")
+    else:
+        print("|==      Total de clientes com")
+        print("|==        contas vencidas:", soma)
+    print("|==========================================|")
     input("Pressione Enter para continuar...")
 
 def relatorio_especifico(clientes):
     type_data = input("Digite o tipo de dado para filtrar (cpf, nome, telefone, cidade): ")
-    if type_data == "cpf":
+    if type_data.lower() == "cpf":
         for cliente in clientes:
             print("|==========================================|")
             print("|== cpf: ", cliente)
-    elif type_data == "nome":
+    elif type_data.lower() == "nome":
         for cliente in clientes:
             print("|==========================================|")
             print("|== cliente: ", clientes[cliente][0])
-    elif type_data == "telefone":
+    elif type_data.lower() == "telefone":
         for cliente in clientes:
             print("|==========================================|")
             print("|== telefone: ", clientes[cliente][1])
-    elif type_data == "cidade":
+    elif type_data.lower() == "cidade":
         for cliente in clientes:
             print("|==========================================|")
             print("|== cidade: ", clientes[cliente][2])
+    else:
+        print("|==========================================|")
+        print("|==           Opção inválida!!           ==|")
     print("|==========================================|")
     input("Pressione Enter para continuar...")
     

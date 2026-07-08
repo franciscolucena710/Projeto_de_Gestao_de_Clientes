@@ -1,4 +1,3 @@
-import os
 import mod1
 import mod2
 import mod3
